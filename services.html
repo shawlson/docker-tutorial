@@ -1,0 +1,139 @@
+<head>
+    <title>Services</title>
+    <style>
+        .comment {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Services, Multi-container Apps, and Docker Compose</h1>
+    <p>
+        As a modern developer, you've broken your application into pieces that handle different services which
+        may need to scale independently. As an even moderner developer, you've written each of these services as
+        a Docker image and want to combine them into one functioning Docker application. Enter: Docker Compose. 
+    </p>
+
+    <h2>Docker Compose</h2>
+    <p>
+        Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration.
+    </p>
+
+    <h3>Installation</h3>
+    <h4>
+        Mac and Windows
+    </h4>
+    <p>
+        On Mac and Windows, Docker for {Mac, Windows} and Docker Toolbox already include Docker Compose. Sweet!
+    </p>
+
+    <h4>
+        Linux
+    </h4>
+    <ol>
+        <li>
+            Download the latest version of Docker Compose from GitHub:
+            <pre><code>
+    sudo curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose    
+            </code></pre>
+            Here, the release number 1.17.0 is an example. Check <a href="https://github.com/docker/compose/releases">the official repository</a> for the latest.
+        </li><br>
+        <li>
+            Apply executable persmissions to the binary:
+            <pre><code>
+    sudo chmod +x /usr/local/bin/docker-compose    
+            </code></pre>
+        </li><br>
+        <li>
+            Test the Installation
+            <pre><code>
+    $ docker-compose --version
+    docker-compose version 1.17.0, build 1719ceb
+            </code></pre>
+        </li>
+    </ol>
+
+    <h3>
+        Connect containers with docker-compose.yml
+    </h3>
+    <p>
+        Let's imagine what a docker-compose.yml file could look like for an application with a webserver, a database, and a network cache.
+        <pre><code>
+    # The latest and greatest
+    version: "3"
+    services:
+        web:
+            image: progessive-tech-firm/our_web_app
+            ports: 
+                - "3000":"80"
+            # ports: 
+            #    - "80"
+        db:
+            image: postgres
+            expose:
+                - "5432"
+        cache:
+            image: redis
+            expose:
+                - "6379"
+        </code></pre>
+        What have we created here? We took three Docker images - progressive_tech_firm/our_web_app, postgres, and redis - and used them as the basis for
+        three services that we defined in docker-compose.yml - web, db, and cache, respectively. You can think of these services being in their own
+        isolated network. In the db and cache services, we expose the ports 5432 and 6379 to this network. In the web service, we exposed the port 80
+        to the isolated network, and also bound port 3000 on the host machine to port 80 in the Docker container. If we wanted, we could have specified
+        only  ports: "-80", which would bind port 80 in the Docker container to a random port on our host machine, but would otherwise have the same effect.
+        <br>
+        <br>
+        Now, we can specify how each of our services should run.
+        <pre><code>
+    version: "3"
+    services:
+        web:
+            image: progessive-tech-firm/our_web_app
+            ports: 
+                - "3000":"80"
+            deploy:
+                replicas: 5
+                resources:
+                    limits:
+                        cpus: "0.1"
+                        memory: 50M
+                restart-policy:
+                    condition: on-failure
+        db:
+            image: postgres
+            expose:
+                - "5432"
+            deploy:
+                restart-policy:
+                    condition: on-failure
+        cache:
+            image: redis
+            expose:
+                - "6379"
+            deploy:
+                restart-policy:
+                    condition: on-failure
+        </code></pre>
+        What did we change this time around? We told Docker to run 5 instances of our web service, and limited each instance
+        up to 10% of the CPU time and up to 50MB of RAM. We also told Docker to restart any of our services if they exited
+        erroneously.
+        <br>
+        <br>
+        docker-compose files have many more options, and you can explore further in the <a href="https://docs.docker.com/compose/compose-file/">
+        official documentation</a>.
+    </p>
+
+    <h3>
+        Run your app
+    </h3>
+    <p>
+        To start running your multi-service app, simply place your docker-compose.yml file in the directory of your choice
+        and run
+        <pre><code>
+    docker-compose up    
+        </code></pre>
+        You're good to go!
+    </p>
+</body>
