@@ -2,150 +2,67 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
-        crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/styles.css">
     <title>Docker - Swarms</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/index.html">Docker Tutorial</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        Sections
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Introduction</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Containers</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Services</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Swarms</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Stacks</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Deployment</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <h1>Swarms</h1>
 
-    <div class="jumbotron">
-        <h1 class="display-3">Swarms</h1>
-        <p class="lead">Everything you need to know about Swarms!</p>
+    <h3 class="text-muted">What are swarms?</h3>
+
+    <p>
+        Swarms are a slightly more advanced topic that we won't get too much into. However, we will give you the basics so you can
+        pick up swarms when you're ready!
+    </p>
+    <p>
+        A swarm is a group of machines, phsyical or virtual, that are linked together to run docker containers. A
+        <i>swarm manager</i> is a machine that executes docker commands and distributes the work to other machines in the swarm.
+        Swarm managers distribute the work to
+        <i>nodes</i>, the other machines in the
+        <i>cluster</i>, with various methods. However, this is entirely customizable by you in the Compose file!
+    </p>
+    <p>
+        The diagram tries to explain visually how a swarm works. As you can see, all docker commands will be executed on the Swarm
+        Manager. The swarm manager then delegates the commands to the worker nodes to complete the execution.
+    </p>
+    <div>
+        <img id="swarm_diagram" src="img/docker_swarm_diagram.png" alt="Swarm Diagram" style="width:25%">
     </div>
-
-    <div class="container main-content">
-        <div class="row">
-            <div class="col">
-                <h3 class="text-muted">What are swarms?</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p>
-                    Swarms are a slightly more advanced topic that we won't get too much into. However, we will give you the basics so you can
-                    pick up swarms when you're ready!
-                </p>
-                <p>
-                    A swarm is a group of machines, phsyical or virtual, that are linked together to run docker containers. A
-                    <i>swarm manager</i> is a machine that executes docker commands and distributes the work to other machines
-                    in the swarm. Swarm managers distribute the work to
-                    <i>nodes</i>, the other machines in the
-                    <i>cluster</i>, with various methods. However, this is entirely customizable by you in the Compose file!
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p>
-                    The diagram tries to explain visually how a swarm works. As you can see, all docker commands will be executed on the Swarm
-                    Manager. The swarm manager then delegates the commands to the worker nodes to complete the execution.
-                </p>
-            </div>
-            <div class="col">
-                <img id="swarm_diagram" src="img/docker_swarm_diagram.png" alt="Swarm Diagram" class="img-fluid">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h3 class="text-muted">Setting up a Swarm</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p>
-                    Since most people don't have multiple machines lying around waiting for use, we are going to create some virtual machines
-                    for the purpose of this tutorial. On your machine with docker installed, we are going to create two VMs;
-                    one to be a manager and one to be a worker.
-                    <pre><code>
+    <h3>Setting up a Swarm</h3>
+    <p>
+        Since most people don't have multiple machines lying around waiting for use, we are going to create some virtual machines
+        for the purpose of this tutorial. On your machine with docker installed, we are going to create two VMs; one to be
+        a manager and one to be a worker.
+        <pre><code>
                         docker-machine create --driver virtualbox myvm1
                         docker-machine create --driver virtualbox myvm2
                     </code></pre> You should now have two VMs running inside docker! To view your vms type
-                    <code>docker-machine ls</code>. If you don't see two machines listed, there might be a problem.
-                </p>
-                <p>
-                    We're almost done! If you're not familiar with the
-                    <code>docker-machine ssh</code> command, its very simple. It allows you to quickly run bash commands on your VMs without needing to
-                    ssh into them explicitly. We're going to use this to designate one of your VMs to be a swarm manager.
-                    Choose one of your two VMs and run the following command using the ip-address of the vm from
-                    <code>docker-machine ls</code>
-                    <pre><code>docker-machine ssh myvm1 "docker swarm init --advertise-addr &lt;myvm1 ip&gt;"</code></pre> The output from the above command will give you a custom bash command to run on other VMs to allow them
-                    to join the swarm. Copy that command somewhere so you can use it in the future.
-                </p>
-                <p>
-                    Now you can add your second VM to the swarm using a similar syntax as above. Insert the code snippet from the output of the
-                    previous command at the "docker-command" placeholder.
-                    <pre><code>
+        <code>docker-machine ls</code>. If you don't see two machines listed, there might be a problem.
+    </p>
+    <p>
+        We're almost done! If you're not familiar with the
+        <code>docker-machine ssh</code> command, its very simple. It allows you to quickly run bash commands on your VMs without needing to ssh into them
+        explicitly. We're going to use this to designate one of your VMs to be a swarm manager. Choose one of your two VMs
+        and run the following command using the ip-address of the vm from
+        <code>docker-machine ls</code>
+        <pre><code>docker-machine ssh myvm1 "docker swarm init --advertise-addr &lt;myvm1 ip&gt;"</code></pre> The output from the above command will give you a custom bash command to run on other VMs to allow them to join
+        the swarm. Copy that command somewhere so you can use it in the future.
+    </p>
+    <p>
+        Now you can add your second VM to the swarm using a similar syntax as above. Insert the code snippet from the output of the
+        previous command at the "docker-command" placeholder.
+        <pre><code>
                         docker-machine ssh myvm2 "&lt;docker-command&gt;"    
-                    </code></pre> Thats it! You are now up and running with your own swarm! To ensure your swarm is set up correctly,
-                    run the following
-                    <code>docker-machine ssh myvm1 "docker node ls"</code> This command will run "docker node ls" on the swarm manager. The output should confirm that both VMs
-                    are part of the swarm!
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h3 class="text-muted">Deploying to a swarm</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                Deploying to a swarm is as easy as deploying to a single machine. Simply run your docker commands on the swarm manager, and
-                docker will handle the rest!
-            </div>
-        </div>
-        <div class="row">
-                <div class="col">
-                    <div style="display:flex;margin-top:2em;">
-                        <a href="/services.html" class="btn btn-link link">Services</a>
-                        <div class="spacer"></div>
-                        <a href="/stacks.html" class="btn btn-link link">Stacks</a>
-                    </div>
-                </div>
-            </div>
-    </div>
+                    </code></pre> Thats it! You are now up and running with your own swarm! To ensure your swarm is set up correctly, run the following
+        <code>docker-machine ssh myvm1 "docker node ls"</code> This command will run "docker node ls" on the swarm manager. The output should confirm that both VMs are part of
+        the swarm!
+    </p>
+    <h3 class="text-muted">Deploying to a swarm</h3>
+    <p>Deploying to a swarm is as easy as deploying to a single machine. Simply run your docker commands on the swarm manager, and
+    docker will handle the rest!</p>
 
-    
+
 
 
 </body>
