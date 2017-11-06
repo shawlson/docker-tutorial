@@ -1,0 +1,107 @@
+<head>
+	<title>Deploy your App</title>
+</head>
+<body>
+	<h1>Deploy your App</h1>
+
+	<h2>In this Section</h2>
+	
+		<p>Now that you have a finished product, the next step is to deploy your app and share it with the world. This section will walk through the steps necessary to deploy an app built with Docker. Fortunately for us, Docker makes this process very easy. We will be using <a href='https://hub.docker.com/'>Docker Hub</a> and <a href='https://aws.amazon.com/elasticbeanstalk/?nc2=h_m1'>AWS Elastic Beanstalk</a>to host our app. You will need to create an account on both of these platforms, but both offer a free tier that will be sufficient for this tutorial.</p>
+		
+	<h2>Push to Docker Hub</h2>
+	
+		<p>Docker Hub is a registry of Docker repositories. A Docker repository is a collection of Docker images. We are pushing our image to this registry in order for AWS to access it. There are other registries available but Docker Hub is the default for docker, so we will be using that.</p>
+		
+		<p>First we will need to tag our image in order to associate it with a repository. To do this we wil  use the tag command. Note that :tag is optional but allows you to track different versions of the repository.</p>
+		<pre><code>		$docker tag image username/repository:tag</code></pre>
+		
+		<p>Now we will login to Docker Hub from the command line.</p>
+		<pre><code>
+		$docker login
+		>username:
+		>password:
+		</code></pre>
+		
+		<p>Finally, we will push our image to the repository.</p>
+		<pre><code>		$docker push username/repository:tag</code></pre>
+		
+		<p>Now, if you go to the Docker Hub site and login, you should see the image you just uploaded.</p>
+		
+	<h2>Configure AWS Elastic Beanstalk</h2>
+		<p>The next step in deploying your app is to configure the <a href='https://aws.amazon.com/elasticbeanstalk/?nc2=h_m1'>AWS Elastic Beanstalk</a> environment to host your app.</p>
+		
+		<p>First we need to create a <code>Dockerrun.aws.json</code> file. This file will tell AWS how to deploy your docker container. Below is an example Dockerrun.aws.json file followed by a list of valid keys.</p>
+		
+		<pre><code>
+		{
+		  "AWSEBDockerrunVersion": "1",
+		  "Image": {
+			"Name": "username/image name",
+			"Update": "true"
+		  },
+		  "Ports": [
+			{
+			  "ContainerPort": "80"
+			}
+		  ],
+		  "Logging": "/var/log/nginx"
+		}
+		</code></pre>
+		
+		<h5>AWSEBDockerrunVersion</h5>
+		<p>(required) This specifies the version number. Here we use version 1 to specify a single container Docker configuration</p>
+		<h5>Authentication</h5>
+		<p>(required for private repositories) This specifies the object that stores the .dockercfg file.</p>
+		<h5>Image</h5>
+		<p>...</p>
+		
+		<p>Once logged in, select 'Create new Environment' in the top right of the screen.</p>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
