@@ -1,0 +1,67 @@
+<html>
+  <header>
+    <title>Introduction</title>
+  </header>
+  <body>
+    <h1>Introduction</h1>
+    <img src="https://d1xwtr0qwr70yv.cloudfront.net/assets/tech/docker-a031ea303d6cde9124e4a2c0f517f90c.svg" alt="Sourced from https://egghead.io/technologies/docker" width="400" height="400" />
+    <p>
+      Sourced from <a href="https://egghead.io/technologies/docker">Egghead Docker Tutorial</a>
+    </p>
+    <h2>What is Docker?</h2>
+    <p>
+      Docker is a platform for running applications in an isolated environment, called containers.
+      Containers are like thinly sliced virtual machines, which allow for applications to run securely and isolated without all the overhead of installing a virtual machine and all of its operating system.
+      These containers also allow for developers to put an application with its dependencies into a container, allowing for simple distribution of that application that will run the same on every system with docker.
+      Docker's popularity has exploded in recent years due to its ease of use and how light its overhead is. Today it boasts more than 25 million users.
+    </p>
+
+    <h2>Features of Docker</h2>
+    <ul>
+      <li>Applications are easily shareable</li>
+      <li>Applications run the same in all environments, with little overhead</li>
+      <li>Since there is so little overhead, Docker is easily scalable to many instances</li>
+      <li>Docker containers can be deployed locally or hosted on a server</li>
+    </ul>
+
+    <h2>How It Works</h2>
+    <img src="https://www.docker.com/sites/default/files/Container%402x.png" alt="Container explaination sourced from docker.com" width="400" height="400" />
+    <p>Sourced from <a href="https://docker.com">Docker's site</a></p>
+    <p>
+      All containers on a host computer can share a single kernel as overhead, as opposed to multiple VMs all needing their own instances of the VM's operating system.
+      These container processes run similarly to how they would on an isolated computer. Due to this isolation, there are no configuration problems to deal with. 
+    </p>
+
+    <h2>Installation</h2>
+    <p>
+      Docker can be installed on Windows, Mac, and many distributions of Linux. There are also two editions of Docker, Community Edition and Enterprise Edition.
+      Community Edition is free and best for people just starting out using Docker.
+      Enterprise Edition is a subscription version of Docker for enterprise developer and IT teams building and managing critical apps in production at large scale.
+      Once downloaded, follow the installation instructions with the downloaded file.
+      Docker commands can be called on your command line of choice.
+    </p>
+    <h3>Windows</h3>
+    <p>
+      Download Docker Community Edition for Windows <a href="https://store.docker.com/editions/community/docker-ce-desktop-windows">here</a>
+    </p>
+    <h3>Mac</h3>
+    <p>
+      Download Docker Community Edition for Mac <a href="https://store.docker.com/editions/community/docker-ce-desktop-mac">here</a>
+    </p>
+    <h3>Linux</h3>
+    <p>
+      Search <a href="https://store.docker.com/search?type=edition&offering=community">here</a> to find the correct Docker download for your distribution of Linux.
+    </p>
+
+    <h2>Basic commands</h2>
+    <p>
+      Here are some introductory commands for just getting started with Docker:
+    </p>
+    <ul>
+      <li><code>docker -v</code> to see the version of docker installed</li>
+      <li><code>docker ps -a</code> lists the current docker containers currently running or that have been run recently</li>
+      <li><code>docker run &lt;name of container&gt;</code> to run a specific instance of a container</li>
+      <li><code>docker rm &lt;name of container&gt;</code> to remove a specific instance of a container</li>
+    </ul>
+  </body>
+</html>
