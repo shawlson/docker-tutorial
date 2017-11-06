@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Part 2: Containers</h1>
+<h2>Prerequisites</h2>
+<ul>
+	<li>Install Docker Version 1.13 or higher.</li>
+	<li>Read Orientation or Part 1</li>
+	<li>Run docker and try a quick test run to make sure that everything is working fine:
+		<code>docker run hello-world</code>
+	</li>
+</ul>
+<h2>Introduction and Development Environment</h2>
+<p>A docker app is divided in 3 parts: <ul><li>Stack</li><li>Services</li><li>Container</li></ul></p>
+<p>For example, if you are working on an app being written in java, the first thing to do would be to install
+the java runtime framework and the java SDK onto your machine. This creates a situation where the environment on
+your machine has to be in perfect order for your app to run as expected and same for the server that supports the application.</p>
+<p>With Docker, this is not nescessary! You can just directly grab the portable java runtime as an image, absolutely no installation 
+necessary.</p>
+<p>These portable images are defined by <code>Dockerfile</code></p>
+<h2>Defining an Image</h2>
+<p>A basic way to think about <code>Dockerfile</code> is to imgine it as a settings page. If your app neeeds access to particular resources like networking interfaces or certain disk drivers or packages
+you have to manually map ports to those specific things. However, once you're done with this step, you can except your docker app defined in this <code>Dockerfile</code> to run exactly the same everywhere. </p>
+<p>All the packages needed by your app are simply mentioned in a file called <code>requirements.txt</code> which is referred to inside the <code>Dockerfile</code>. The file <code>requirements.txt</code> is placed in the same directory as 
+<code>Dockerfile</code>.</p>
+
+<b>Type the code in <u>Dockerfile</u> for installing packages: </b><code>RUN pip install -r requirements.txt</code>
+
+<p>This completes our app which as you can see is quite simple! Now you are ready to build your
+app. To build the app simply run this command <code>docker build -t *appname*</code></p>
+
+<h2>Running the App</h2>
+<p>Run the app, mapping your machine's port 4000 to lets say containers port 80 using <code>-p</code>:</p>
+<p><code>docker run -p 4000:80 *appname*</code></p>
+
+<p><b>Congratulations!</b> you just ran your first docker app!</p>
+<p>For more info on docker and tutorials visit the links below.	
+		<li><a href="https://docs.docker.com/get-started/">Official docker tutorial</a></li>
+		<li><a href="https://medium.freecodecamp.org/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b">Beginner friendly introduction to containers and VM's</a></li>
+</p>		
