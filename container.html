@@ -24,14 +24,17 @@ you have to manually map ports to those specific things. However, once you're do
 <p>All the packages needed by your app are simply mentioned in a file called <code>requirements.txt</code> which is referred to inside the <code>Dockerfile</code>. The file <code>requirements.txt</code> is placed in the same directory as 
 <code>Dockerfile</code>.</p>
 
-<b>Type the code in <u>Dockerfile</u> for installing packages: </b><code>RUN pip install -r requirements.txt</code>
-
-<p>This completes our app which as you can see is quite simple! Now you are ready to build your
-app. To build the app simply run this command <code>docker build -t *appname*</code></p>
+<p><b>Type this code in <u>Dockerfile</u> for installing packages: </b><code>RUN pip install -r requirements.txt</code></p>
+<p>Shown below is what a typical dockerfile looks like.</p>
+<img src="img/rsz_dfile.png" width = "384" height = "286">
+<p>This completes initializing our app which as you can see is quite simple! Now you are ready to build your
+app. To build the app simply run this command <code>docker build -t *imagename*</code></p>
 
 <h2>Running the App</h2>
 <p>Run the app, mapping your machine's port 4000 to lets say containers port 80 using <code>-p</code>:</p>
-<p><code>docker run -p 4000:80 *appname*</code></p>
+<p><code>docker run -p 4000:80 *imagename*</code></p>
+
+<img src="img/drun.png">
 
 <p><b>Congratulations!</b> you just ran your first docker app!</p>
 <p>For more info on docker and tutorials visit the links below.	
