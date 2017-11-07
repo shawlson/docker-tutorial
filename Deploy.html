@@ -6,13 +6,13 @@
 
 	<h2>In this Section</h2>
 	
-		<p>Now that you have a finished product, the next step is to deploy your app and share it with the world. This section will walk through the steps necessary to deploy an app built with Docker. Fortunately for us, Docker makes this process very easy. We will be using <a href='https://hub.docker.com/'>Docker Hub</a> and <a href='https://aws.amazon.com/elasticbeanstalk/?nc2=h_m1'>AWS Elastic Beanstalk</a>to host our app. You will need to create an account on both of these platforms, but both offer a free tier that will be sufficient for this tutorial.</p>
+		<p>Once you have a finished product, the next step is to deploy your app and share it with the world. This section will walk through the steps necessary to deploy an app built with Docker. Fortunately for us, Docker makes this process very easy. We will be using <a href='https://hub.docker.com/'>Docker Hub</a> and <a href='https://aws.amazon.com/elasticbeanstalk/?nc2=h_m1'>AWS Elastic Beanstalk</a> to host our app. You will need to create an account on both of these platforms, but both offer a free tier that will be sufficient for this tutorial.</p>
 		
 	<h2>Push to Docker Hub</h2>
 	
 		<p>Docker Hub is a registry of Docker repositories. A Docker repository is a collection of Docker images. We are pushing our image to this registry in order for AWS to access it. There are other registries available but Docker Hub is the default for docker, so we will be using that.</p>
 		
-		<p>First we will need to tag our image in order to associate it with a repository. To do this we wil  use the tag command. Note that :tag is optional but allows you to track different versions of the repository.</p>
+		<p>First we will need to tag our image in order to associate it with a repository. To do this we will use the tag command. Note that :tag is optional but allows you to track different versions of the repository.</p>
 		<pre><code>		$docker tag image username/repository:tag</code></pre>
 		
 		<p>Now we will login to Docker Hub from the command line.</p>
@@ -36,15 +36,14 @@
 		{
 		  "AWSEBDockerrunVersion": "1",
 		  "Image": {
-			"Name": "username/image name",
+			"Name": "username/image_name",
 			"Update": "true"
 		  },
 		  "Ports": [
 			{
 			  "ContainerPort": "80"
 			}
-		  ],
-		  "Logging": "/var/log/nginx"
+		  ]
 		}
 		</code></pre>
 		
@@ -53,10 +52,48 @@
 		<h5>Authentication</h5>
 		<p>(required for private repositories) This specifies the object that stores the .dockercfg file.</p>
 		<h5>Image</h5>
-		<p>...</p>
+		<p>This identifies where AWS will pull the Docker repository from. The 'Name' key is required and uses the format username/image_name for Docker Hub, and site/username/image_name for other registries. The 'Update' key is optional. When set to 'true' AWS will pull the most up to date version of the repository.</p>
+		<h5>Ports</h5>
+		<p>(required when Image key is present) This is a list of ports to expose on the Docker container. The key 'ContainerPort' connects the Docker container to the reverse proxy on the host, allowing internet traffic to be routed to the container.</p>
+		<h5>Volumes</h5>
+		<p>Map storage volumes to the Docker container.</p>
+		<h5>Logging</h5>
+		<p>This determines where application logs will be stored on the host.</p>
 		
-		<p>Once logged in, select 'Create new Environment' in the top right of the screen.</p>
+		<hr>
+		
+		<p>Now we are ready to configure the AWS environment to host our app. The following section will walk through the necessary steps to get up and running, but will skip over a lot of the configuration options that are beyond the scope of this tutorial.</p>
+		
+		<ul>
+		<li>Log in to Elastic Beanstalk and select 'Create new Application' in the top right of the screen.</li>
+		<li>Under Application Info, enter a name and description for your app.</li>
+		<p></p>
+		<img src='https://i.imgur.com/Y4cHomZ.png' width=50%>
+		<p></p>
+		<li>Next, select 'create web server' option next to 'Web Server Environment.'</li>
+		<li>Under 'Environment Type', select 'Docker' as the predefined configuration.</li>
+		<p></p>
+		<img src='https://i.imgur.com/Ty96hv2.png' width=50%>
+		<p></p>
+		<li>Under 'Application Version', select 'upload your own' and select the Dockerrun.aws.json file created earlier.</li>
+		<li>Under 'Environment Information', choose a name for the environment, and choose the URL that will be used to access the deployed site.</li>
+		<p></p>
+		<img src='https://i.imgur.com/Pz46wo9.png' width=50%>
+		<p></p>
+		<li>Feel free to skip over Additional Recources, the defaults will work for this example</li>
+		<li>Under 'Configuration Details', make sure the instance type is set to 't2.micro' if you are using the free tier of AWS.</li>
+		<li>The 'Environment Tags' section can be skipped.</li>
+		<li>The 'Permissions' section can also be skipped as the defaults will work for us.</li>
+		<li>Under 'Review Information' verify that everything is configured correctlye and hit 'Launch'.</li>
+		</ul>
+		
+		<p>Launching the app for the first time will take a few minutes, don't worry! Once it is done setting up, a green checkmark will indicate a healthy status. Open up the url to see your deployed app!</p>
+		
+		<p></p>
+		<img src='https://i.imgur.com/K2sEJ2L.png' width=50%>
+		<p></p>
 </body>
+
 
 
 
