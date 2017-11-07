@@ -8,14 +8,67 @@
 <body>
     <h1>Quick Reference</h1>
 
-    <h4>Docker</h4>
+    <h3>Docker</h3>
     <ul>
+        <li>
+            <code>docker -v</code> show what version of docker you have installed
+        </li>
         <li>
             <code>docker ps</code> : List running containers.
             <code>-a</code> will list all containers
         </li>
+        <li>
+            <code>docker run &lt;name of image&gt;</code> runs an instance of a container.
+            <code>-p &lt;port number&gt;</code> to run on specific port
+        </li>
+        <li>
+            <code>docker stop &lt;name of container&gt;</code> stops a currently running container. it stops but keeps state. Can be restarted
+        </li>
+        <li>
+            <code>docker rm &lt;name of container&gt;</code> remove a nonrunning container from the list of containers
+        </li>
+        <li>
+            <code>docker exec &lt;name of container&gt; &lt;command&gt;</code> runs a command on a specific container
+        </li>
+        <li>
+            <code>docker swarm init</code> initialize a machine as a swarm manager
+        </li>
+        <li>
+            <code>docker tag &lt;image&gt;</code> associate a docker image with a repository
+        </li>
+        <li>
+            <code>docker push &lt;image&gt;</code> push an image to a repository
+        </li>
     </ul>
 
+    <h3>Docker Compose</h3>
+    <ul>
+        <li>
+            <code>docker-compose up</code> run the multi-service app in the current directory
+        </li>
+        <li>
+            <code>docker-compose</code> can run most basic docker commands including the ones above
+        </li>
+    </ul>
+
+    <h3>Docker Machine</h3>
+    <ul>
+        <li>
+            <code>docker-machine create --driver virtualbox &lt;name of VM&gt;</code> creates a virtual machine running docker
+        </li>
+        <li>
+            <code>docker-machine ssh &lt;name of VM&gt; &lt;docker command&gt;</code> runs a docker command on a virtual machine
+        </li>
+        <li>
+            <code>docker-machine ls</code> lists the currently running VMs
+        </li>
+        <li>
+            <code>docker-machine env &lt;VM name&gt;</code> gives the command to switch docker environment to execute commands on that VM
+        </li>
+        <li>
+            <code>docker-machine start &lt;VM name&gt;</code> restart a stopped VM
+        </li>
+    </ul>
 </body>
 
 </html>
