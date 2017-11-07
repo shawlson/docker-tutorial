@@ -78,9 +78,12 @@
             expose:
                 - "6379"
         </code></pre>
-        What have we created here? We took three Docker images - progressive_tech_firm/our_web_app, postgres, and redis - and used them as the basis for
+        What have we created here? We took three Docker images - progressive-tech-firm/our_web_app, postgres, and redis - and used them as the basis for
         three services that we defined in docker-compose.yml - web, db, and cache, respectively. You can think of these services being in their own
-        isolated network. In the db and cache services, we expose the ports 5432 and 6379 to this network. In the web service, we exposed the port 80
+        isolated network. In the db and cache services, we expose the ports 5432 and 6379 to this network. The containers can talk to each other
+        at the address {service_name}:{port num}.
+        <br>
+        In the web service, we exposed the port 80
         to the isolated network, and also bound port 3000 on the host machine to port 80 in the Docker container. If we wanted, we could have specified
         only  ports: "-80", which would bind port 80 in the Docker container to a random port on our host machine, but would otherwise have the same effect.
         <br>
